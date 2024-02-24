@@ -1,4 +1,4 @@
-How to implement a light and dark theme in your React project using Tailwind CSS. Here are the steps:
+## How to implement a light and dark theme in your React project using Tailwind CSS. Here are the steps:
 
 1. **Install Tailwind CSS**: First, you need to install Tailwind CSS in your project. You can do this by running the following command in your project directory:
 

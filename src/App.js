@@ -1,9 +1,12 @@
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import { ThemeContext } from './ThemeContext';
 import Header from './components/Header';
 import Body from './components/Body';
+import { Provider } from 'react-redux';
+import reduxStore from './redux/reduxStore';
+import LoadingBar from 'react-top-loading-bar';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -20,13 +23,24 @@ function App() {
     }
   };
 
+  const ref = useRef(null)
+  useEffect(() => {
+    ref.current.continuousStart();
+    setTimeout(() => {
+      ref.current.complete();
+    }, 200);
+  }, []);
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className='dark:bg-gray-950 bg-white w-full h-screen'>
-        <Header/>
-        <Body/>
-      </div>
-    </ThemeContext.Provider>
+    <Provider store={reduxStore}>
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <LoadingBar color='#e50914' ref={ref} />
+        <div className='dark:bg-gray-950 bg-white w-full h-full'>
+          <Header/>
+          <Body/>
+        </div>
+      </ThemeContext.Provider>
+    </Provider>
   );
 }
 
