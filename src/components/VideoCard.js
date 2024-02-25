@@ -42,28 +42,26 @@ const VideoCard = ({videoDetails}) => {
     }
 
     return (
-    <div className="rounded-lg w-28 md:w-[300px]  md:h-[318px] max-sm:w-[300px] cursor-pointer select-none">
-        <img
-            alt="thumbnail"
-            src={snippet?.thumbnails?.medium?.url}
-            // width={snippet?.thumbnails?.medium?.width}
-            className="rounded-lg w-full"
-        />
-        <div className='flex'>
-            <img
-              alt=""
-            />
-            <div className=''>
-                <h3 className='font-medium leading-8 text-lg'>{snippet?.title}</h3>
-                <h3>{snippet?.channelTitle}</h3>
-                <div className="flex space-x-2 items-center">
-                    <p>{formatViewCount(statistics?.viewCount)} views</p>
-                    <p className='bg-black/50 dark:bg-white rounded-full w-1 h-1'></p>
-                    <p>{getYouTubeUploadDateFormat(new Date(snippet?.publishedAt))}</p>
-                </div>
+        <div className="rounded-lg w-full sm:w-[350px] h-[318px] cursor-pointer select-none">
+    <img
+        alt="thumbnail"
+        src={snippet?.thumbnails?.medium?.url}
+        className="rounded-lg w-full"
+    />
+    <div className='flex'>
+        <img alt="" />
+        <div className=''>
+            <h3 className='font-medium leading-8 text-lg'>{snippet?.title}</h3>
+            <h3>{snippet?.channelTitle}</h3>
+            <div className="flex space-x-2 items-center">
+                <p>{formatViewCount(statistics?.viewCount)} views</p>
+                <p className='bg-black/50 dark:bg-white rounded-full w-1 h-1'></p>
+                <p>{getYouTubeUploadDateFormat(new Date(snippet?.publishedAt))}</p>
             </div>
         </div>
     </div>
+</div>
+
     );
 }
 
