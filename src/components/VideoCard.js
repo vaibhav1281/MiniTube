@@ -1,7 +1,6 @@
 import React from 'react';
 
 const VideoCard = ({videoDetails}) => {
-  console.log(videoDetails)
     const { snippet , statistics } = videoDetails;
 
     function formatViewCount(viewCount) {
@@ -43,24 +42,24 @@ const VideoCard = ({videoDetails}) => {
 
     return (
         <div className="rounded-lg w-full sm:w-[350px] h-[318px] cursor-pointer select-none">
-    <img
-        alt="thumbnail"
-        src={snippet?.thumbnails?.medium?.url}
-        className="rounded-lg w-full"
-    />
-    <div className='flex'>
-        <img alt="" />
-        <div className=''>
-            <h3 className='font-medium leading-8 text-lg'>{snippet?.title}</h3>
-            <h3>{snippet?.channelTitle}</h3>
-            <div className="flex space-x-2 items-center">
-                <p>{formatViewCount(statistics?.viewCount)} views</p>
-                <p className='bg-black/50 dark:bg-white rounded-full w-1 h-1'></p>
-                <p>{getYouTubeUploadDateFormat(new Date(snippet?.publishedAt))}</p>
+            <img
+                alt="thumbnail"
+                src={snippet?.thumbnails?.medium?.url}
+                className="rounded-lg w-full"
+            />
+            <div className='flex px-2'>
+                <img alt="" />
+                <div className=''>
+                    <h3 className='font-medium text-base'>{snippet?.title.substring(0, 70) + (snippet?.title.length > 70 ? '...' : '')}</h3>
+                    <h3 className='text-sm'>{snippet?.channelTitle}</h3>
+                    <div className="flex space-x-2 items-center text-sm">
+                        <p>{formatViewCount(statistics?.viewCount)} views</p>
+                        <p className='bg-black/50 dark:bg-white rounded-full w-1 h-1'></p>
+                        <p>{getYouTubeUploadDateFormat(new Date(snippet?.publishedAt))}</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
     );
 }

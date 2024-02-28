@@ -81,3 +81,7 @@ export default App;
 ```
 
 Now, you should be able to switch between light and dark themes in your React application using Tailwind CSS. Remember to define your color palette for both light and dark themes in your Tailwind CSS configuration. You can refer to the [Tailwind CSS documentation](https://tailwindcss.com/docs/dark-mode) for more details. Happy coding! 🚀
+
+
+
+## Debounce

@@ -7,6 +7,9 @@ import Body from './components/Body';
 import { Provider } from 'react-redux';
 import reduxStore from './redux/reduxStore';
 import LoadingBar from 'react-top-loading-bar';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import MainContainer from './components/MainContainer';
+import WatchVideoPage from './components/WatchVideoPage';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -31,13 +34,30 @@ function App() {
     }, 200);
   }, []);
 
+  const appRouter = createBrowserRouter([
+    {
+      path: '/',
+      element: <Body/>,
+      children:[
+        {
+          path: "/",
+          element: <MainContainer/>
+        },
+        {
+          path:"/watch",
+          element: <WatchVideoPage/>
+        }
+      ]
+    }
+  ])
+
   return (
     <Provider store={reduxStore}>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <LoadingBar color='#e50914' ref={ref} />
         <div className='dark:bg-gray-950 bg-white w-full h-full'>
           <Header/>
-          <Body/>
+          <RouterProvider router={appRouter}/>
         </div>
       </ThemeContext.Provider>
     </Provider>
