@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from '../ThemeContext';
-import Search from './Search';
 import { useDispatch } from 'react-redux';
 import { toggleMenu } from '../redux/appSlice'; 
+import VoiceSearch from './search/VoiceSearch';
+import Search from './search/Search';
 
 const Header = () => {
     const { theme, toggleTheme } = useContext(ThemeContext);
@@ -13,13 +14,14 @@ const Header = () => {
 
     return (
         <header className='w-full h-20 dark:text-white select-none flex justify-center items-center top-0 sticky z-10 bg-white dark:bg-gray-950'>
-        <div className='w-11/12 justify-center items-center flex space-x-8 max-sm:space-x-1'>
+            <div className='w-11/12 justify-center items-center flex space-x-8 max-sm:space-x-1'>
 
                 <button onClick={toggleMenuButton}  className='dark:bg-gray-900 hover:bg-black/10 dark:hover:bg-gray-700 p-2 rounded-full hidden md:flex'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                 </button>
+
                 {/* logo */}
                 <div className='flex items-center space-x-2 font-serif'>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-10 h-w-10">
@@ -29,8 +31,9 @@ const Header = () => {
                 </div>
                 {/* search bar */}
                 <div className='flex flex-1'>
-                    <Search/>
+                    <VoiceSearch/>
                 </div>
+                <Search/>
                 
                 {/* light/dark switcher */}
                 <button
