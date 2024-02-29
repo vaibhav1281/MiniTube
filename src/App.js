@@ -10,6 +10,7 @@ import LoadingBar from 'react-top-loading-bar';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import MainContainer from './components/MainContainer';
 import WatchVideoPage from './components/WatchVideoPage';
+import SighInUp from './components/authentication/SighInUp';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -46,9 +47,13 @@ function App() {
         {
           path:"/watch",
           element: <WatchVideoPage/>
-        }
+        },
       ]
-    }
+    },
+    {
+      path:"/signin",
+      element: <SighInUp/>
+    },
   ])
 
   return (
