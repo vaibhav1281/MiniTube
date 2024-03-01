@@ -31,9 +31,17 @@ const Header = ({ isSignedIn, onSignOut }) => {
                 </div>
                 {/* search bar */}
                 <div className='flex flex-1'>
-                    <VoiceSearch/>
+                    {
+                        isSignedIn && (
+                            <>
+                            <div className='flex flex-1'>
+                                <VoiceSearch/>
+                            </div>
+                            <Search/>
+                            </>
+                        )
+                    }
                 </div>
-                <Search/>
                 
                 {/* light/dark switcher */}
                 <button

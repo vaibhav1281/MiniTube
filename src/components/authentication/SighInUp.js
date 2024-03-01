@@ -55,7 +55,7 @@ const SignInUp = () => {
     };
 
     return (
-        <div className='w-full flex justify-center min-h-screen dark:text-white mt-8'>
+        <div className='w-full flex justify-center min-h-screen dark:text-white mt-8 max-sm:mt-[30%]'>
             <form onSubmit={handleSubmit} className='border-2 w-[55%] h-[50%] flex flex-col justify-center items-center max-sm:border-none max-sm:w-full rounded-3xl'>
                 <label className='flex w-[50%] max-sm:w-[80%] justify-start mt-6 text-xl font-medium'>
                     {isSignIn ? "Sign In" : "Create an Account"}
