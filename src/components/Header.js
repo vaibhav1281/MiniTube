@@ -70,7 +70,7 @@ const Header = ({ isSignedIn, onSignOut }) => {
                         </button>
                     </>
                 ) : (
-                    <button className='dark:bg-gray-900 hover:bg-black/10 dark:hover:bg-gray-700 p-2 rounded-full hidden md:flex'>
+                    <button className='dark:bg-gray-900 hover:bg-black/10 bg-black/5 dark:hover:bg-gray-700 p-2 rounded-full hidden md:flex'>
                         Sign In/Up
                     </button>
                 )}
