@@ -7,13 +7,33 @@ import Body from './components/Body';
 import { Provider } from 'react-redux';
 import reduxStore from './redux/reduxStore';
 import LoadingBar from 'react-top-loading-bar';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import MainContainer from './components/MainContainer';
 import WatchVideoPage from './components/WatchVideoPage';
 import SighInUp from './components/authentication/SighInUp';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from './components/authentication/firebase';
 
 function App() {
   const [theme, setTheme] = useState('light');
+  const [isSignedIn, setIsSignedIn] = useState(false); // State to track if user is signed in
+
+ useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsSignedIn(!!user); // Update state based on whether a user is signed in
+    });
+
+    return () => unsubscribe(); // Clean up the listener on component unmount
+ }, []);
+
+ // Function to handle sign out
+ const handleSignOut = () => {
+    signOut(auth).then(() => {
+      setIsSignedIn(false); // Update state to reflect user is signed out
+    }).catch((error) => {
+      console.error("Error signing out:", error);
+    });
+  };
 
   const toggleTheme = () => {
     if (theme === 'light') {
@@ -38,7 +58,7 @@ function App() {
   const appRouter = createBrowserRouter([
     {
       path: '/',
-      element: <Body/>,
+      element: isSignedIn ? <Body /> : <Navigate to="/signin" />,
       children:[
         {
           path: "/",
@@ -61,7 +81,7 @@ function App() {
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <LoadingBar color='#e50914' ref={ref} />
         <div className='dark:bg-gray-950 bg-white w-full h-full'>
-          <Header/>
+          <Header isSignedIn={isSignedIn} onSignOut={handleSignOut}/>
           <RouterProvider router={appRouter}/>
         </div>
       </ThemeContext.Provider>
