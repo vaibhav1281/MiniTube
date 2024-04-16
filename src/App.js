@@ -1,5 +1,4 @@
-
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import { ThemeContext } from './ThemeContext';
 import Header from './components/Header';
@@ -13,14 +12,17 @@ import WatchVideoPage from './components/WatchVideoPage';
 import SighInUp from './components/authentication/SighInUp';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './components/authentication/firebase';
+import SkeletonUI from './components/SkeletonUI';
 
-function App() {
-  const [theme, setTheme] = useState('light');
-  const [isSignedIn, setIsSignedIn] = useState(false); // State to track if user is signed in
+const App = () => {
+ const [theme, setTheme] = useState('light');
+ const [isSignedIn, setIsSignedIn] = useState(false);
+ const [loading, setLoading] = useState(true); // Add loading state
 
  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsSignedIn(!!user); // Update state based on whether a user is signed in
+      setLoading(false); // Set loading to false once the auth state is checked
     });
 
     return () => unsubscribe(); // Clean up the listener on component unmount
@@ -33,9 +35,9 @@ function App() {
     }).catch((error) => {
       console.error("Error signing out:", error);
     });
-  };
+ };
 
-  const toggleTheme = () => {
+ const toggleTheme = () => {
     if (theme === 'light') {
       window.document.body.classList.remove('light');
       window.document.body.classList.add('dark');
@@ -45,20 +47,20 @@ function App() {
       window.document.body.classList.add('light');
       setTheme('light');
     }
-  };
+ };
 
-  const ref = useRef(null)
-  useEffect(() => {
+ const ref = useRef(null)
+ useEffect(() => {
     ref.current.continuousStart();
     setTimeout(() => {
       ref.current.complete();
     }, 200);
-  }, []);
+ }, []);
 
-  const appRouter = createBrowserRouter([
+ const appRouter = createBrowserRouter([
     {
       path: '/',
-      element: isSignedIn ? <Body /> : <Navigate to="/signin" />,
+      element: loading ? <SkeletonUI/> : (isSignedIn ? <Body /> : <Navigate to="/signin" />), // Use loading state here
       children:[
         {
           path: "/",
@@ -68,6 +70,7 @@ function App() {
           path:"/watch",
           element: <WatchVideoPage/>
         },
+        
       ]
     },
     {
@@ -76,7 +79,7 @@ function App() {
     },
   ])
 
-  return (
+ return (
     <Provider store={reduxStore}>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <LoadingBar color='#e50914' ref={ref} />
@@ -86,7 +89,7 @@ function App() {
         </div>
       </ThemeContext.Provider>
     </Provider>
-  );
+ );
 }
 
 export default App;

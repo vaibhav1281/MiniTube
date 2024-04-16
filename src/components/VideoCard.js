@@ -41,16 +41,16 @@ const VideoCard = ({videoDetails}) => {
     }
 
     return (
-        <div className="rounded-lg w-full sm:w-[350px] h-[318px] cursor-pointer select-none">
+        <div className="rounded-lg w-[330px] md:w-[350px] h-[318px] cursor-pointer select-none">
             <img
                 alt="thumbnail"
                 src={snippet?.thumbnails?.medium?.url}
                 className="rounded-lg w-full"
             />
-            <div className='flex px-2'>
+            <div className='flex px-2 w-full'>
                 <img alt="" />
-                <div className=''>
-                    <h3 className='font-medium text-base'>{snippet?.title.substring(0, 70) + (snippet?.title.length > 70 ? '...' : '')}</h3>
+                <div className='w-full'>
+                    <h3 className='font-medium text-base overflow-hidden'>{snippet?.title.substring(0, 70) + (snippet?.title.length > 69 ? '...' : '')}</h3>
                     <h3 className='text-sm'>{snippet?.channelTitle}</h3>
                     <div className="flex space-x-2 items-center text-sm">
                         <p>{formatViewCount(statistics?.viewCount)} views</p>
